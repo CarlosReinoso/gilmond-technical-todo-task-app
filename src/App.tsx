@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
-import TodoList from "./components/TodosList/TodosList";
-import AddTodo from "./components/AddTodo/AddTodo";
+import TodoList from "./components/TodoList";
+import AddTodo from "./components/AddTodo";
 import { v4 as uuidv4 } from "uuid";
 
 const initialTodos: Array<Todo> = [
@@ -37,7 +37,7 @@ const App: React.FC = () => {
           ? todos.map((item) => <li key={item.id}>{item.todo}</li>)
           : null}
       </ul>
-      <TodoList />
+      <TodoList/>
       {modalVisibility && (
         <AddTodo isModal={toggleAddTodoModal} addTodo={addTodo} />
       )}
