@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/gilmond-technical-task-todo-app/static/css/main.5cf2cf9d.chunk.css",
+    "main.js": "/gilmond-technical-task-todo-app/static/js/main.24b0ceec.chunk.js",
+    "main.js.map": "/gilmond-technical-task-todo-app/static/js/main.24b0ceec.chunk.js.map",
+    "runtime-main.js": "/gilmond-technical-task-todo-app/static/js/runtime-main.d1392102.js",
+    "runtime-main.js.map": "/gilmond-technical-task-todo-app/static/js/runtime-main.d1392102.js.map",
+    "static/js/2.dc405e64.chunk.js": "/gilmond-technical-task-todo-app/static/js/2.dc405e64.chunk.js",
+    "static/js/2.dc405e64.chunk.js.map": "/gilmond-technical-task-todo-app/static/js/2.dc405e64.chunk.js.map",
+    "index.html": "/gilmond-technical-task-todo-app/index.html",
+    "static/css/main.5cf2cf9d.chunk.css.map": "/gilmond-technical-task-todo-app/static/css/main.5cf2cf9d.chunk.css.map",
+    "static/js/2.dc405e64.chunk.js.LICENSE.txt": "/gilmond-technical-task-todo-app/static/js/2.dc405e64.chunk.js.LICENSE.txt",
+    "static/media/logo.02afe57c.svg": "/gilmond-technical-task-todo-app/static/media/logo.02afe57c.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d1392102.js",
+    "static/js/2.dc405e64.chunk.js",
+    "static/css/main.5cf2cf9d.chunk.css",
+    "static/js/main.24b0ceec.chunk.js"
+  ]
+}
