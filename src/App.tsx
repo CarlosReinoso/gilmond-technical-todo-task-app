@@ -27,17 +27,16 @@ const App: React.FC = () => {
   const [modalVisibility, setModalVisibility] = useState(false);
   const toggleAddTodoModal = (): void => setModalVisibility(!modalVisibility);
 
+  const handleDelete = (todoId: Todo["id"]): void =>
+    setTodos(todos.filter((item) => item.id !== todoId));
+
   return (
     <div>
       <h1>Todos</h1>
       <h2>Your Todo Will Be Added Here</h2>
       <button onClick={toggleAddTodoModal}>Add Todo</button>
-      <ul>
-        {todos.length > 0
-          ? todos.map((item) => <li key={item.id}>{item.todo}</li>)
-          : null}
-      </ul>
-      <TodoList/>
+
+      <TodoList todos={todos} handleDelete={handleDelete} />
       {modalVisibility && (
         <AddTodo isModal={toggleAddTodoModal} addTodo={addTodo} />
       )}

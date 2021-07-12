@@ -1,8 +1,18 @@
-const TodoListItem = () => {
+interface TodoListItemProps {
+    todo: Todo["todo"],
+    id: Todo["id"],
+    handleDelete: handleDelete
+}
+
+const TodoListItem = ({todo, id, handleDelete }: TodoListItemProps) => {
     return (
-        <div>
-            <h3>I am a todo item</h3>
-        </div>
+        <li>
+            {todo}
+            <button>edit</button>
+            <button
+            onClick={() => handleDelete(id)}
+            >delete</button>
+        </li>
     )
 }
 

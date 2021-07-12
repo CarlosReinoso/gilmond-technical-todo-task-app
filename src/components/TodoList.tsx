@@ -1,12 +1,25 @@
-import TodoListItem from "./TodoListItem"
+import TodoListItem from "./TodoListItem";
 
-const TodoList = () => {
-    return (
-        <div>
-            <h2>I am a child</h2>
-            <TodoListItem/>
-        </div>
-    )
+interface TodoListProps {
+  todos: Array<Todo>;
+  handleDelete: handleDelete;
 }
 
-export default TodoList
+const TodoList = ({ todos, handleDelete }: TodoListProps) => {
+  return (
+    <ul>
+      {todos.length > 0
+        ? todos.map((item) => (
+            <TodoListItem
+              todo={item.todo}
+              id={item.id}
+              key={item.id}
+              handleDelete={handleDelete}
+            />
+          ))
+        : null}
+    </ul>
+  );
+};
+
+export default TodoList;
