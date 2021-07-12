@@ -1,59 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import TodoList from "./components/TodosList/TodosList";
+import AddTodo from "./components/AddTodo/AddTodo";
+import { v4 as uuidv4 } from "uuid";
 
-function App() {
+const initialTodos: Array<Todo> = [
+  {
+    id: uuidv4(),
+    todo: "walk",
+    isComplete: false,
+  },
+  {
+    id: uuidv4(),
+    todo: "talk",
+    isComplete: false,
+  },
+];
+
+const App: React.FC = () => {
+  const [todos, setTodos] = useState<Array<Todo>>(initialTodos);
+
+  const addTodo: addTodo = (newTodo) => {
+    setTodos([...todos, { id: uuidv4(), todo: newTodo, isComplete: false }]);
+  };
+
+  const [modalVisibility, setModalVisibility] = useState(false);
+  const toggleAddTodoModal = (): void => setModalVisibility(!modalVisibility);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>MY APP</h1>
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div>
+      <h1>Todos</h1>
+      <h2>Your Todo Will Be Added Here</h2>
+      <button onClick={toggleAddTodoModal}>Add Todo</button>
+      <ul>
+        {todos.length > 0
+          ? todos.map((item) => <li key={item.id}>{item.todo}</li>)
+          : null}
+      </ul>
+      <TodoList />
+      {modalVisibility && (
+        <AddTodo isModal={toggleAddTodoModal} addTodo={addTodo} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
