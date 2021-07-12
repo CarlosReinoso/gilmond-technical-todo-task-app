@@ -5,15 +5,12 @@ import AddTodo from "./components/AddTodo";
 import { v4 as uuidv4 } from "uuid";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import logo from "./assets/logo.svg";
-import { IconButton } from "material-ui";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,9 +59,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     [theme.breakpoints.up("sm")]: {
       width: 360,
-    }
-  
-  }
+    },
+  },
 }));
 
 const initialTodos: Array<Todo> = [];
@@ -103,17 +99,11 @@ const App: React.FC = () => {
             </Fab>
             <TodoList todos={todos} handleDelete={handleDelete} />
             {modalVisibility && (
-              <div 
-              onClick={toggleAddTodoModal}
-              className={classes.modalBackdrop}>
-                <div 
-                onClick={(e) => {e.stopPropagation()}}
-                className={classes.modalContent}>
-                  <Fade in={modalVisibility}>
-                    <AddTodo isModal={toggleAddTodoModal} addTodo={addTodo}  />
-                  </Fade>
-                </div>
-              </div>
+              <Fade in={modalVisibility}>
+                <Paper>
+                  <AddTodo isModal={toggleAddTodoModal} addTodo={addTodo} />
+                </Paper>
+              </Fade>
             )}
           </div>
         </Grid>
