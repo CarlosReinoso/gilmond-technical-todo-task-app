@@ -7,3 +7,6 @@ type Todo = {
 type addTodo = (newTodo: string) => void;
 
 type handleDelete = (todoId: Todo["id"]) => void
+
+type handleEdit = (todoId: Todo["id"], editedTodo: string) => void
+

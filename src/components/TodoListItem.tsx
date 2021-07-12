@@ -1,19 +1,19 @@
 interface TodoListItemProps {
-    todo: Todo["todo"],
-    id: Todo["id"],
-    handleDelete: handleDelete
+  todo: Todo["todo"];
+  id: Todo["id"];
+  handleDelete: handleDelete;
+  handleEdit: handleEdit;
+  activeTodo: Todo
 }
 
-const TodoListItem = ({todo, id, handleDelete }: TodoListItemProps) => {
-    return (
-        <li>
-            {todo}
-            <button>edit</button>
-            <button
-            onClick={() => handleDelete(id)}
-            >delete</button>
-        </li>
-    )
-}
+const TodoListItem = ({ todo, id, handleDelete, handleEdit, activeTodo }: TodoListItemProps) => {
+  return (
+    <li>
+      {todo}
+      <button onClick={() => handleEdit(id, editedTodo)}>edit</button>
+      <button onClick={() => handleDelete(id)}>delete</button>
+    </li>
+  );
+};
 
-export default TodoListItem
+export default TodoListItem;

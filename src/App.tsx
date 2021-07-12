@@ -30,15 +30,37 @@ const App: React.FC = () => {
   const handleDelete = (todoId: Todo["id"]): void =>
     setTodos(todos.filter((item) => item.id !== todoId));
 
+  const [isEdit, setIsEdit] = useState(false);
+  console.log("isEdit", isEdit);
+  const [activeTodo, setActiveTodo] = useState<Todo>();
+  const handleEdit = (todoId: Todo["id"], editedTodo: string): void => {
+    console.log("todoId", todoId);
+    setIsEdit(true);
+    setModalVisibility(true);
+    todos.map((item: Todo) =>
+      item.id === todoId ? (item.todo = editedTodo) : item
+    );
+  };
+
   return (
     <div>
       <h1>Todos</h1>
       <h2>Your Todo Will Be Added Here</h2>
       <button onClick={toggleAddTodoModal}>Add Todo</button>
 
-      <TodoList todos={todos} handleDelete={handleDelete} />
+      <TodoList
+        todos={todos}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        activeTodo={activeTodo}
+      />
       {modalVisibility && (
-        <AddTodo isModal={toggleAddTodoModal} addTodo={addTodo} />
+        <AddTodo
+          isModal={toggleAddTodoModal}
+          addTodo={addTodo}
+          activeTodo={activeTodo}
+          isEdit={isEdit}
+        />
       )}
     </div>
   );
