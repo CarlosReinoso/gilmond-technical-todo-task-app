@@ -1,3 +1,4 @@
+import { Modal } from "@material-ui/core";
 import React, { useState } from "react";
 
 interface AddTodoProps {
@@ -23,7 +24,8 @@ const AddTodo = ({ isModal, addTodo }: AddTodoProps) => {
 
   return (
     <div>
-      <h4>Add Your Task</h4>
+
+      <h2>Add Your Task</h2>
       <form onSubmit={handleSubmit}>
         <input
           onChange={(e) => setCurrentTodo(e.target.value)}
@@ -35,6 +37,7 @@ const AddTodo = ({ isModal, addTodo }: AddTodoProps) => {
         {error && <p>{error}</p>}
         <button type="submit">Add</button>
       </form>
+
     </div>
   );
 };

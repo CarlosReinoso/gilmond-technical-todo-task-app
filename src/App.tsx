@@ -11,6 +11,9 @@ import logo from "./assets/logo.svg";
 import { IconButton } from "material-ui";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +39,32 @@ const useStyles = makeStyles((theme) => ({
     bottom: 24,
     right: 24,
   },
+  modalBackdrop: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "fixed",
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.25)",
+  },
+  modalContent: {
+    width: "100%",
+    height: "60%",
+    margin: theme.spacing(2),
+    background: "white",
+    border: "2px solid white",
+    borderRadius: 5,
+    display: "flex",
+    flexDirection: "column",
+    [theme.breakpoints.up("sm")]: {
+      width: 360,
+    }
+  
+  }
 }));
 
 const initialTodos: Array<Todo> = [];
@@ -74,7 +103,17 @@ const App: React.FC = () => {
             </Fab>
             <TodoList todos={todos} handleDelete={handleDelete} />
             {modalVisibility && (
-              <AddTodo isModal={toggleAddTodoModal} addTodo={addTodo} />
+              <div 
+              onClick={toggleAddTodoModal}
+              className={classes.modalBackdrop}>
+                <div 
+                onClick={(e) => {e.stopPropagation()}}
+                className={classes.modalContent}>
+                  <Fade in={modalVisibility}>
+                    <AddTodo isModal={toggleAddTodoModal} addTodo={addTodo}  />
+                  </Fade>
+                </div>
+              </div>
             )}
           </div>
         </Grid>
