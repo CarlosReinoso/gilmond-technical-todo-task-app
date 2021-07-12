@@ -3,11 +3,10 @@ import TodoListItem from "./TodoListItem";
 interface TodoListProps {
   todos: Array<Todo>;
   handleDelete: handleDelete;
-  handleEdit: handleEdit
-  activeTodo: Todo
+
 }
 
-const TodoList = ({ todos, handleDelete, handleEdit, activeTodo }: TodoListProps) => {
+const TodoList = ({ todos, handleDelete }: TodoListProps) => {
   return (
     <ul>
       {todos.length > 0
@@ -17,8 +16,7 @@ const TodoList = ({ todos, handleDelete, handleEdit, activeTodo }: TodoListProps
               id={item.id}
               key={item.id}
               handleDelete={handleDelete}
-              handleEdit={handleEdit}
-              activeTodo={activeTodo}
+              
             />
           ))
         : null}

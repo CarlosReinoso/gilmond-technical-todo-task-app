@@ -3,31 +3,21 @@ import React, { useState } from "react";
 interface AddTodoProps {
   isModal: () => void;
   addTodo: addTodo;
-  activeTodo: Todo;
-  isEdit: boolean;
 }
 
-const AddTodo = ({ isModal, addTodo, isEdit, activeTodo }: AddTodoProps) => {
-  // const [activeTodo, setActiveTodo] = useState()
-  const [test, setTest] = useState({});
+const AddTodo = ({ isModal, addTodo }: AddTodoProps) => {
   const [currentTodo, setCurrentTodo] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (isEdit) {
-      isModal();
-      handleEdit(id, currentTodo);
-      isEdit = false;
+    if (currentTodo.length === 0 || currentTodo.trim() === "") {
+      setError("Input is empty. Please enter a todo");
     } else {
-      if (currentTodo.length === 0 || currentTodo.trim() === "") {
-        setError("Input is empty. Please enter a todo");
-      } else {
-        addTodo(currentTodo);
-        isModal();
-        setError("");
-      }
+      addTodo(currentTodo);
+      isModal();
+      setError("");
     }
   };
 
@@ -40,7 +30,7 @@ const AddTodo = ({ isModal, addTodo, isEdit, activeTodo }: AddTodoProps) => {
           type="text"
           name="todo"
           placeholder="What do you have todo?"
-          value={isEdit ? "test value" : currentTodo}
+          value={currentTodo}
         />
         {error && <p>{error}</p>}
         <button type="submit">Add</button>
