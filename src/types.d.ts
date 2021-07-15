@@ -1,4 +1,4 @@
-type Todo = {
+interface Todo  {
   id: string;
   todo: string;
   isComplete: bool;
@@ -6,7 +6,6 @@ type Todo = {
 
 type addTodo = (newTodo: string) => void;
 
-type handleDelete = (todoId: Todo["id"]) => void
+type handleDelete = (todoId: Todo['id']) => void
 
-type handleEdit = (todoId: Todo["id"], editedTodo: string) => void
-
+type handleEdit = (todo: Todo) => void

@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import "./App.css";
-import TodoList from "./components/TodoList";
-import AddTodo from "./components/AddTodo";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import logo from "./assets/logo.svg";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
-import Fade from "@material-ui/core/Fade";
+import { makeStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
+import logo from './assets/logo.svg';
+import TodoList from './components/TodoList';
+import AddTodoModal from './components/AddTodoModal';
+import { RootState, AppDispatch } from './redux/store';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   appContainer: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "80vh",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '80vh',
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   img: {
@@ -32,34 +32,9 @@ const useStyles = makeStyles((theme) => ({
     height: 50,
   },
   addButton: {
-    position: "fixed",
+    position: 'fixed',
     bottom: 24,
     right: 24,
-  },
-  modalBackdrop: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "fixed",
-    zIndex: 1,
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.25)",
-  },
-  modalContent: {
-    width: "100%",
-    height: "60%",
-    margin: theme.spacing(2),
-    background: "white",
-    border: "2px solid white",
-    borderRadius: 5,
-    display: "flex",
-    flexDirection: "column",
-    [theme.breakpoints.up("sm")]: {
-      width: 360,
-    },
   },
 }));
 
@@ -68,46 +43,45 @@ const initialTodos: Array<Todo> = [];
 const App: React.FC = () => {
   const classes = useStyles();
 
-  const [todos, setTodos] = useState<Array<Todo>>(initialTodos);
-
-  const addTodo: addTodo = (newTodo) => {
-    setTodos([...todos, { id: uuidv4(), todo: newTodo, isComplete: false }]);
-  };
+  // const [todos, setTodos] = useState<Array<Todo>>(initialTodos);
+  const todos = useSelector((state: RootState) => state)
+  const dispatch = useDispatch<AppDispatch>()
+  console.log('todos', todos)
 
   const [modalVisibility, setModalVisibility] = useState(false);
+
+  // const addTodo: addTodo = (newTodo) => {
+  //   setTodos([...todos, { id: uuidv4(), todo: newTodo, isComplete: false }]);
+  // };
+
   const toggleAddTodoModal = (): void => setModalVisibility(!modalVisibility);
 
-  const handleDelete = (todoId: Todo["id"]): void =>
-    setTodos(todos.filter((item) => item.id !== todoId));
+  // const handleDelete = (todoId: Todo['id']): void => setTodos(todos.filter((item) => item.id !== todoId));
 
   return (
     <>
-      {/* <div className={classes.app}> */}
-      <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <div className={classes.appContainer}>
-            <h1>Todos</h1>
-            <img src={logo} alt="gilmnd-logo" className={classes.img} />
-            {todos.length === 0 && <h4>Your Todo Will Be Added Here</h4>}
-            <Fab
-              onClick={toggleAddTodoModal}
-              className={classes.addButton}
-              color="primary"
-              aria-label="add"
-            >
-              <AddIcon />
-            </Fab>
-            <TodoList todos={todos} handleDelete={handleDelete} />
-            {modalVisibility && (
-              <Fade in={modalVisibility}>
-                <Paper>
-                  <AddTodo isModal={toggleAddTodoModal} addTodo={addTodo} />
-                </Paper>
-              </Fade>
-            )}
-          </div>
-        </Grid>
-      </Grid>
+      <div className={classes.appContainer}>
+        <h1>Todos</h1>
+        <img src={logo} alt="gilmnd-logo" className={classes.img} />
+        {todos.length === 0 && <h4>Your Todo Will Be Added Here</h4>}
+        {/* <TodoList todos={todos} handleDelete={handleDelete} /> */}
+        <TodoList todos={todos} />
+        <Fab
+          onClick={toggleAddTodoModal}
+          className={classes.addButton}
+          color="primary"
+          aria-label="add"
+        >
+          <AddIcon />
+        </Fab>
+        {modalVisibility && (
+          <Fade in={modalVisibility}>
+            <Paper>
+              <AddTodoModal isModal={toggleAddTodoModal} addTodo={addTodo} />
+            </Paper>
+          </Fade>
+        )}
+      </div>
     </>
   );
 };
