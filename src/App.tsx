@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import logo from './assets/logo.svg';
 import TodoList from './components/TodoList';
 import AddTodoModal from './components/AddTodoModal';
-import { RootState, AppDispatch } from './redux/store';
+import { RootState } from './redux/store';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,12 +37,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialTodos: Array<Todo> = [];
-
 const App: React.FC = () => {
   const classes = useStyles();
 
-  const todos = useSelector((state: RootState) => state);
+  const selectTodos = (state: RootState) => state;
+
+  const todos = useSelector(selectTodos);
 
   const [modalVisibility, setModalVisibility] = useState(false);
 

@@ -22,10 +22,17 @@ const todoSlice = createSlice({
     },
     deleteTodo(state, action: PayloadAction<string>) {
       //  createReducer(). You need to ensure that you either mutate the state argument or return a new state, but not both.
-       return state.filter((item) => item.id !== action.payload);
+      return state.filter((item) => item.id !== action.payload);
+    },
+    editTodo(state, { payload }: PayloadAction<Todo>) {
+      //  state.find((item) => item.id === payload.id ? (item.todo = payload.todo) : item);
+      const index = state.findIndex((item) => (item.id === payload.id));
+      if (index !== -1) {
+        state[index].todo = payload.todo;
+      }
     },
   },
 });
 
-export const { addTodo, deleteTodo } = todoSlice.actions;
+export const { addTodo, deleteTodo, editTodo } = todoSlice.actions;
 export default todoSlice.reducer;

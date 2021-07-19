@@ -5,6 +5,7 @@
   },
   "extends": [
     "plugin:react/recommended",
+    "plugin:react-redux/recommended",
     "airbnb",
     "plugin:@typescript-eslint/recommended",
     "eslint:recommended",
@@ -19,7 +20,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "react-hooks"],
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "react-redux"],
   "rules": {
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
@@ -41,7 +42,10 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "jsx-a11y/click-events-have-key-events": "off",
     "indent": ["off", 4, { "ignoredNodes": ["JSXElement *"] }],
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-return-assign": 0,
+    "no-param-reassign": 0,
+    "no-unused-expressions": ["error", { "allowTernary": true }]
   },
   "settings": {
     "import/resolver": {

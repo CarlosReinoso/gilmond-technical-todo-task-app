@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { FormControlLabel, makeStyles } from '@material-ui/core';
-import Checkbox from '@material-ui/core/Checkbox';
+// import { useState } from 'react';
+import { makeStyles } from '@material-ui/core';
+// import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
-import { deleteTodo } from '../redux/todosSlice';
+import { deleteTodo, editTodo } from '../redux/todosSlice';
 
 interface TodoListItemProps {
   todo: Todo['todo'];
@@ -32,22 +32,25 @@ const useStyles = makeStyles((theme) => ({
 const Todo = ({ todo, id }: TodoListItemProps) => {
   const classes = useStyles();
 
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-  const handleChange = () => setIsChecked(!isChecked);
+  // const [isChecked, setIsChecked] = useState<boolean>(false);
+  // const handleChange = () => setIsChecked(!isChecked);
 
   const dispatch = useDispatch<AppDispatch>();
 
   return (
     <li
       className={classes.listItem}
-      style={isChecked ? { textDecoration: 'line-through' } : undefined}
+      // style={isChecked ? { textDecoration: 'line-through' } : undefined}
+      contentEditable="true"
+      onInput={(e) => (e.currentTarget.textContent !== null ? (dispatch(editTodo({ id, todo: e.currentTarget.textContent, isComplete: false }))) : e.currentTarget.textContent = todo)}
     >
-      <FormControlLabel
+      { todo }
+      {/* <FormControlLabel
         control={
           <Checkbox onClick={handleChange} name="checkbox" color="primary" />
         }
         label={todo}
-      />
+      /> */}
       <DeleteIcon
         className={classes.deleteIcon}
         onClick={() => dispatch(deleteTodo(id))}
