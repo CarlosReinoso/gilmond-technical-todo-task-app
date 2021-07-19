@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
+import { useSelector } from 'react-redux';
 import logo from './assets/logo.svg';
 import TodoList from './components/TodoList';
 import AddTodoModal from './components/AddTodoModal';
 import { RootState, AppDispatch } from './redux/store';
-import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,16 +42,9 @@ const initialTodos: Array<Todo> = [];
 const App: React.FC = () => {
   const classes = useStyles();
 
-  // const [todos, setTodos] = useState<Array<Todo>>(initialTodos);
-  const todos = useSelector((state: RootState) => state)
-  const dispatch = useDispatch<AppDispatch>()
-  console.log('todos', todos)
+  const todos = useSelector((state: RootState) => state);
 
   const [modalVisibility, setModalVisibility] = useState(false);
-
-  // const addTodo: addTodo = (newTodo) => {
-  //   setTodos([...todos, { id: uuidv4(), todo: newTodo, isComplete: false }]);
-  // };
 
   const toggleAddTodoModal = (): void => setModalVisibility(!modalVisibility);
 
@@ -64,7 +56,6 @@ const App: React.FC = () => {
         <h1>Todos</h1>
         <img src={logo} alt="gilmnd-logo" className={classes.img} />
         {todos.length === 0 && <h4>Your Todo Will Be Added Here</h4>}
-        {/* <TodoList todos={todos} handleDelete={handleDelete} /> */}
         <TodoList todos={todos} />
         <Fab
           onClick={toggleAddTodoModal}
@@ -77,7 +68,7 @@ const App: React.FC = () => {
         {modalVisibility && (
           <Fade in={modalVisibility}>
             <Paper>
-              <AddTodoModal isModal={toggleAddTodoModal} addTodo={addTodo} />
+              <AddTodoModal isModal={toggleAddTodoModal} />
             </Paper>
           </Fade>
         )}

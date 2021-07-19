@@ -2,7 +2,10 @@ import {
  Button, TextField, Typography, makeStyles,
 } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { keyCodes } from '../util/index';
+import { addTodo } from '../redux/todosSlice';
+import { AppDispatch } from '../redux/store';
 
 const useStyles = makeStyles((theme) => ({
   modalBackdrop: {
@@ -42,17 +45,18 @@ const useStyles = makeStyles((theme) => ({
 
 interface AddTodoProps {
   isModal: () => void;
-  addTodo: addTodo;
 }
 
 const AddTodoModal: React.FC<AddTodoProps> = ({
   isModal,
-  addTodo,
-}: AddTodoProps) => {
+}: // addTodo,
+AddTodoProps) => {
   const classes = useStyles();
 
-  const [newTodo, setCurrentTodo] = useState<string>('');
+  const [newTodo, setNewTodo] = useState<string>('');
   const [inputError, setInputError] = useState<string>('');
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +64,8 @@ const AddTodoModal: React.FC<AddTodoProps> = ({
     if (newTodo.length === 0 || newTodo.trim() === '') {
       setInputError('Input is empty. Please enter a todo');
     } else {
-      addTodo(newTodo);
+      dispatch(addTodo(newTodo));
+      setNewTodo('');
       isModal();
       setInputError('');
     }
@@ -73,7 +78,8 @@ const AddTodoModal: React.FC<AddTodoProps> = ({
     ) {
       setInputError('Input is empty. Please enter a todo');
     } else {
-      addTodo(newTodo);
+      dispatch(addTodo(newTodo));
+      setNewTodo('');
       isModal();
       setInputError('');
     }
@@ -96,12 +102,9 @@ const AddTodoModal: React.FC<AddTodoProps> = ({
         className={classes.modalContent}
       >
         <Typography variant="h3">Add Your Todo</Typography>
-        <form
-          className={classes.form}
-
-        >
+        <form className={classes.form}>
           <TextField
-            onChange={(e) => setCurrentTodo(e.target.value)}
+            onChange={(e) => setNewTodo(e.target.value)}
             type="text"
             name="todo"
             placeholder="What do you have todo?"

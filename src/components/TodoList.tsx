@@ -3,10 +3,9 @@ import TodoListItem from './Todo';
 
 interface TodoListProps {
   todos: Array<Todo>;
-  handleDelete: handleDelete;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos, handleDelete }: TodoListProps) => (
+const TodoList: React.FC<TodoListProps> = ({ todos }: TodoListProps) => (
   <ul>
     {todos.length > 0
       ? todos.map((item) => (
@@ -14,7 +13,6 @@ const TodoList: React.FC<TodoListProps> = ({ todos, handleDelete }: TodoListProp
           todo={item.todo}
           id={item.id}
           key={item.id}
-          handleDelete={handleDelete}
         />
       ))
       : null}

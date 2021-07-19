@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { FormControlLabel, makeStyles } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
+import { deleteTodo } from '../redux/todosSlice';
 
 interface TodoListItemProps {
   todo: Todo['todo'];
   id: Todo['id'];
-  handleDelete: handleDelete;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -27,11 +29,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Todo = ({ todo, id, handleDelete }: TodoListItemProps) => {
+const Todo = ({ todo, id }: TodoListItemProps) => {
   const classes = useStyles();
 
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const handleChange = () => setIsChecked(!isChecked);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <li
@@ -44,7 +48,10 @@ const Todo = ({ todo, id, handleDelete }: TodoListItemProps) => {
         }
         label={todo}
       />
-      <DeleteIcon className={classes.deleteIcon} onClick={() => handleDelete(id)} />
+      <DeleteIcon
+        className={classes.deleteIcon}
+        onClick={() => dispatch(deleteTodo(id))}
+      />
     </li>
   );
 };
