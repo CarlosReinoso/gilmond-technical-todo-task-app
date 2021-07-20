@@ -1,0 +1,17 @@
+[
+  {
+    "id": "asdas123",
+    "todo": "wash",
+    "isComplete": false
+  },
+  {
+    "id": "asdaqw123s",
+    "todo": "hair",
+    "isComplete": true
+  },
+  {
+    "id": "aqweqw123",
+    "todo": "redux",
+    "isComplete": false
+  }
+]

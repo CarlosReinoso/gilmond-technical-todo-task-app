@@ -6,6 +6,3 @@
 > `npm start`
 
 Enjoy! 
-
-
-
